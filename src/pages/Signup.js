@@ -18,7 +18,7 @@ const Signup = (props) => {
         navigate('/login', { replace: true });
     }
 
-    const registerUser = async (user) => {
+    const registerUserAPI = async (user) => {
         const REGISTER_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCNUaizoA-vIyFK5_hSty_cXOBrvb7wJFo';
         try {
             const response = await fetch(REGISTER_URL, {
@@ -29,7 +29,7 @@ const Signup = (props) => {
                 }
             });
             if (!response.ok) {
-                throw new Error('registerUser function Error');
+                throw new Error('registerUserAPI function Error');
             }
             return response;
         } catch (err) {
@@ -58,7 +58,6 @@ const Signup = (props) => {
             return;
         }
         if (passRef.current.value !== confRef.current.value) {
-            setWait(false);
             setConfirmPasswordError(true);
             return;
         }
@@ -68,7 +67,7 @@ const Signup = (props) => {
             password: passRef.current.value
         }
         try {
-            const response = await registerUser(user);
+            const response = await registerUserAPI(user);
             setWait(false);
             // console.log(response);
             if (!response.ok) {
@@ -77,11 +76,11 @@ const Signup = (props) => {
         } catch (err) {
             // alert("Email Already Exist.");
             setApiError(true);
+            console.log('submitHandler function error');
             return;
         }
         setCreated(true);
         // alert('Account Created Successfully!');
-        console.log(user);
     }
 
     return (
@@ -123,7 +122,7 @@ const Signup = (props) => {
             <Row className="justify-content-center pt-3">
                 <Col xs={4}>
                     <div className="d-grid">
-                        <Button onClick={loginClickHandler}>Have an account? Login</Button>
+                        <Button onClick={loginClickHandler}>Already have an account? Login</Button>
                     </div>
                 </Col>
             </Row>

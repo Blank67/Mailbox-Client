@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     token: localStorage.getItem('token'),
-    userID: localStorage.getItem('uID'),
+    uuID: localStorage.getItem('uuID'),
     isLoggedIn: !!localStorage.getItem('token')
     // isLoggedIn: true
 }
@@ -12,17 +12,17 @@ const authSlice = createSlice({
     initialState: initialState,
     reducers: {
         login(state, action) {
-            state.token = action.payload.token;
-            state.userID = action.payload.userID;
             localStorage.setItem('token', action.payload.token);
-            localStorage.setItem('uID', action.payload.userID);
+            localStorage.setItem('uuID', action.payload.uuID);
+            state.token = action.payload.token;
+            state.uuID = action.payload.uuID;
             state.isLoggedIn = true;
         },
         logout(state) {
             localStorage.clear('token');
-            localStorage.clear('uID');
+            localStorage.clear('uuID');
             state.token = localStorage.getItem('token');
-            state.userID = localStorage.getItem('uID');
+            state.uuID = localStorage.getItem('uuID');
             state.isLoggedIn = false;
         }
     }
