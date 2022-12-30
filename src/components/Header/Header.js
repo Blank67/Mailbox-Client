@@ -1,9 +1,16 @@
 import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { authActions } from "../../store/auth-slice/auth-slice";
 
 const Header = (props) => {
     const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
+    const dispatch = useDispatch();
+
+    const logoutHandler = () => {
+        dispatch(authActions.logout());
+    }
 
     return (
         <Fragment>
@@ -12,13 +19,13 @@ const Header = (props) => {
                     <button className="navbar-toggler ms-3" data-bs-toggle="collapse" data-bs-target="#navBar1" aria-controls="navBar1" aria-label="Expand Navigation">
                         <div className="navbar-toggler-icon" />
                     </button>
-                    <NavLink className="navbar-brand ms-3" to={loginStatus ? "/home" : "/login"}>Mailbox Client</NavLink>
+                    <NavLink className="navbar-brand ms-3" to={loginStatus ? "/inbox" : "/login"}>Mailbox Client</NavLink>
                 </div>
 
                 <div className="collapse navbar-collapse d-flex justify-content-center" id="navBar1">
                     <ul className="navbar-nav mr-auto ms-sm-3">
                         {loginStatus && <li className="nav-item">
-                            <NavLink to="/home" className="nav-link">Home</NavLink>
+                            <NavLink to="/inbox" className="nav-link">Inbox</NavLink>
                         </li>}
                         {!loginStatus && <li className="nav-item">
                             <NavLink to="/login" className="nav-link">Login</NavLink>
@@ -30,8 +37,8 @@ const Header = (props) => {
                 </div>
                 {/* <div>
                     {loginStatus && <NavLink to="/profile" className="nav-link text-white me-2" >My Profile</NavLink>}
-                </div>
-                {loginStatus && <Button className="me-3">Logout</Button>} */}
+                </div> */}
+                {loginStatus && <Button className="me-3" onClick={logoutHandler}>Logout</Button>}
             </nav>
         </Fragment>
     );

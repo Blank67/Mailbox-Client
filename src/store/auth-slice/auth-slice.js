@@ -4,7 +4,6 @@ const initialState = {
     token: localStorage.getItem('token'),
     uuID: localStorage.getItem('uuID'),
     isLoggedIn: !!localStorage.getItem('token')
-    // isLoggedIn: true
 }
 
 const authSlice = createSlice({
