@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,9 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.app__body {
+  display: grid;
+  grid-template-columns: 170px auto;
 }

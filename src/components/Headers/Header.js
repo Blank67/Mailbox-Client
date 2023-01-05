@@ -1,16 +1,14 @@
 import { Fragment } from "react";
-import { Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { authActions } from "../../store/auth-slice/auth-slice";
 
 const Header = (props) => {
     const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    const logoutHandler = () => {
-        dispatch(authActions.logout());
-    }
+    // const logoutHandler = () => {
+    //     dispatch(authActions.logout());
+    // }
 
     return (
         <Fragment>
@@ -38,7 +36,7 @@ const Header = (props) => {
                 {/* <div>
                     {loginStatus && <NavLink to="/profile" className="nav-link text-white me-2" >My Profile</NavLink>}
                 </div> */}
-                {loginStatus && <Button className="me-3" onClick={logoutHandler}>Logout</Button>}
+                {/* {loginStatus && <Button className="me-3" onClick={logoutHandler}>Logout</Button>} */}
             </nav>
         </Fragment>
     );
