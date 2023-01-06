@@ -4,10 +4,12 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth-slice/auth-slice";
 import SearchIcon from '@material-ui/icons/Search';
 import "../../css/LoginHeader.css";
+import { mailActions } from "../../store/mails-slice/mails-slice";
 
 const LoginHeader = (props) => {
     const dispatch = useDispatch();
     const logoutHandler = () => {
+        dispatch(mailActions.clearSliceOnLogout());
         dispatch(authActions.logout());
     }
     return (

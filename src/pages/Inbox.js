@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TextEditor from "../components/Editor/TextEditor";
 import MailList from "../components/Mails/MailList";
+import { mailActions } from "../store/mails-slice/mails-slice";
 
 const Inbox = (props) => {
     const [compose, setCompose] = useState(false);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const sEmail = useSelector(state => state.auth.email);
     const rEmail = useRef('');
     const subject = useRef('');
@@ -20,12 +21,15 @@ const Inbox = (props) => {
         const rMail = rEmail.current.value;
         const subj = subject.current.value;
         const mail = {
+            id: rMail + '_' + subj.replace(/\s+/g, ''),
             sEmail,
             rEmail: rMail,
             subject: subj,
             body
         }
-        console.log(mail);
+        // console.log(mail);
+        // debugger;
+        dispatch(mailActions.addMail({ mail: mail }));
     }
 
     return (
@@ -46,7 +50,7 @@ const Inbox = (props) => {
                         <label htmlFor="rEmail">To: </label>
                     </Col>
                     <Col>
-                        <Form.Control id="rEmail" type="email" ref={rEmail}/>
+                        <Form.Control id="rEmail" type="email" ref={rEmail} />
                     </Col>
                 </Row>
 

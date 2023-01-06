@@ -10,9 +10,16 @@ const mailsSlice = createSlice({
     reducers: {
         addMail(state, action) {
             const newMail = action.payload.mail;
-            state.mails.push({id: newMail.id, sEmail: newMail.sEmail, rEmail: newMail.rEmail, read: false});
+            // debugger;
+            state.mails.push({ id: newMail.id, sEmail: newMail.sEmail, rEmail: newMail.rEmail, subject: newMail.subject, read: false });
         },
-        deleteMail(state, action) {}
+        deleteMail(state, action) { },
+        replaceMailState(state, action) {
+            state.mails = action.payload.mails;
+        },
+        clearSliceOnLogout(state) {
+            state.mails = [];
+        },
     }
 })
 

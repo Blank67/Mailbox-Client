@@ -4,7 +4,7 @@ const initialState = {
     token: localStorage.getItem('token'),
     uuID: localStorage.getItem('uuID'),
     isLoggedIn: !!localStorage.getItem('token'),
-    email: ''
+    email: localStorage.getItem('email') || ''
 }
 
 const authSlice = createSlice({
@@ -14,6 +14,7 @@ const authSlice = createSlice({
         login(state, action) {
             localStorage.setItem('token', action.payload.token);
             localStorage.setItem('uuID', action.payload.uuID);
+            localStorage.setItem('email',action.payload.email);
             state.token = action.payload.token;
             state.uuID = action.payload.uuID;
             state.isLoggedIn = true;
@@ -22,6 +23,7 @@ const authSlice = createSlice({
         logout(state) {
             localStorage.clear('token');
             localStorage.clear('uuID');
+            localStorage.clear('email');
             state.token = localStorage.getItem('token');
             state.uuID = localStorage.getItem('uuID');
             state.isLoggedIn = false;
