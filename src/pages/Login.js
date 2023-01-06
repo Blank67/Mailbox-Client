@@ -78,7 +78,8 @@ const Login = (props) => {
             }
             const token = transformedResponse.idToken;
             const uuID = transformedResponse.localId;
-            dispatch(authActions.login({ token: token, uuID: uuID }));
+            const email = transformedResponse.email;
+            dispatch(authActions.login({ token: token, uuID: uuID, email: email }));
             navigate('/inbox', { replace: true });
         } catch (err) {
             console.log('signUpHandler function error');

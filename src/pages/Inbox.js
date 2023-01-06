@@ -1,45 +1,74 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import TextEditor from "../components/Editor/TextEditor";
+import MailList from "../components/Mails/MailList";
 
 const Inbox = (props) => {
     const [compose, setCompose] = useState(false);
+    // const dispatch = useDispatch();
+    const sEmail = useSelector(state => state.auth.email);
+    const rEmail = useRef('');
+    const subject = useRef('');
+    const [body, setBody] = useState('');
 
     const toggleCompose = () => {
         setCompose((prevState) => (!prevState));
     }
 
+    const onMailSend = () => {
+        const rMail = rEmail.current.value;
+        const subj = subject.current.value;
+        const mail = {
+            sEmail,
+            rEmail: rMail,
+            subject: subj,
+            body
+        }
+        console.log(mail);
+    }
+
     return (
         <div>
             <Button className="m-2" onClick={toggleCompose}>Compose</Button>
+            {compose && <Container className="" style={{ position: "fixed", bottom: "0px", right: "0px", background: "whitesmoke", width: "40rem" }}>
+                <Row className="rounded-top" style={{ background: "#4d4f52" }}>
+                    <Col>
+                        <div>
+                            <span>New Message</span>
+                            <div className="btn float-end" onClick={toggleCompose}>X</div>
+                        </div>
+                    </Col>
+                </Row>
 
-            {compose && <Container style={{ width: "50rem" }}>
-                <Row className="my-1">
+                <Row className="my-2">
                     <Col xs={1}>
                         <label htmlFor="rEmail">To: </label>
                     </Col>
                     <Col>
-                        <Form.Control id="rEmail" type="email" />
+                        <Form.Control id="rEmail" type="email" ref={rEmail}/>
                     </Col>
                 </Row>
+
                 <Row className="my-1">
-                    <Col xs={1}>
+                    <Col xs={1} className="ps-1">
                         <label htmlFor="subject">Subject: </label>
                     </Col>
                     <Col>
-                        <Form.Control id="subject" />
+                        <Form.Control id="subject" ref={subject} />
                     </Col>
                 </Row>
+
                 <div className="sender__body">
-                    <TextEditor className="my-1" />
+                    <TextEditor className="my-1 mt-3" body={setBody} />
                 </div>
                 <div className="sender__footer">
-                    <Button className="d-flex float-end">Send</Button>
+                    <Button className="float-end my-1" onClick={onMailSend}>Send</Button>
                 </div>
             </Container>
             }
 
-            <h1>INBOX PAG</h1>
+            <MailList />
         </div>
     );
 }
