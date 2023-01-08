@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     mails: [],
+    inbox: [],
+    outbox: []
 }
 
 const mailsSlice = createSlice({
@@ -10,16 +12,22 @@ const mailsSlice = createSlice({
     reducers: {
         addMail(state, action) {
             const newMail = action.payload.mail;
-            // debugger;
-            state.mails.push({ id: newMail.id, sEmail: newMail.sEmail, rEmail: newMail.rEmail, subject: newMail.subject, read: false });
+            state.mails.push({ ...newMail, read: false });
         },
         deleteMail(state, action) { },
         replaceMailState(state, action) {
             state.mails = action.payload.mails;
+            state.inbox = action.payload.inbox;
+            state.outbox = action.payload.outbox;
         },
         clearSliceOnLogout(state) {
             state.mails = [];
+            state.inbox = [];
+            state.outbox = [];
         },
+        addOutboxMails(state, action) {
+            state.outbox.push({ ...action.payload.mail });
+        }
     }
 })
 

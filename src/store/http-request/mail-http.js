@@ -1,48 +1,52 @@
 import axios from '../../axios/axios';
 import { mailActions } from '../mails-slice/mails-slice';
 
-export const fetchAllData = (userID) => {
+export const fetchAllData = (userEmail) => {
     return async (dispatch) => {
         const getData = async () => {
-            const response = await axios.get(`/${userID}.json`);
+            const response = await axios.get(`.json`);
             if (response.statusText !== 'OK') {
                 throw new Error('GET REQ FAILED');
             }
-            debugger;
-            console.log(response);
             return response.data;
         }
 
         try {
             let data = await getData();
-            // debugger;
-            console.log(data);
-            if (!data) {
-                data = { mails: []};
+            if(data.length > 0) {
+                const inbox = data.filter((itm) => itm.rEmail === userEmail);
+                const outbox = data.filter((itm) => itm.sEmail === userEmail);
+                dispatch(mailActions.replaceMailState({mails: data, inbox: inbox, outbox: outbox}));
+            }else{
+                console.log("No mails in firebase");
             }
-            dispatch(mailActions.replaceMailState(data));
         } catch (err) {
-            console.log("EXPENSE-SLICE GET ERROR");
+            console.log("MAIL-SLICE GET ERROR");
         }
     }
 }
 
-export const postAllData = (mailsState, userID) => {
+//POST ONLY MAILS ARRAY
+export const postAllData = (allUserMails) => {
 
     return async (dispatch) => {
         const postRequest = async () => {
-            const response = await axios.put(`/${userID}.json`, mailsState);
-            // debugger;
-            console.log(response);
-            if (response.statusText !== 'OK') {
-                throw new Error('POST REQ FAILED');
+            if(allUserMails.length !== 0){
+                const response = await axios.put(`/.json`, allUserMails);
+                if (response.statusText !== 'OK') {
+                    throw new Error('POST REQ FAILED');
+                }else{
+                    console.log("SUCESS POST");
+                }
+            }else{
+                console.log("First time post req as empty array stopped");
             }
         }
 
         try {
             await postRequest();
         } catch (err) {
-            console.log("EXPENSE-SLICE POST ERROR");
+            console.log("MAIL-SLICE POST ERROR");
         }
     }
 }
