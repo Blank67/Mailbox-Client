@@ -79,7 +79,7 @@ const Inbox = (props) => {
         <div>
             {success && <p className="text-center">Mail sent....</p>}
             <Button className="m-2" onClick={toggleCompose}>Compose</Button>
-            {compose && <Container className="" style={{ position: "fixed", bottom: "0px", right: "0px", background: "whitesmoke", width: "40rem" }}>
+            {compose && <Container style={{zIndex: "1", position: "fixed", bottom: "0px", right: "0px", background: "whitesmoke", width: "40rem" }}>
                 <Row className="rounded-top" style={{ background: "#4d4f52" }}>
                     <Col>
                         <div>

@@ -3,6 +3,9 @@ import { useRef } from "react";
 
 const TextEditor = (props) => {
     const editorRef = useRef(null);
+    const config = {
+        placeholder: 'Type your message here.....'
+    }
 
     const onBlurHandler = (newContent) => {
         props.body(newContent);
@@ -14,6 +17,7 @@ const TextEditor = (props) => {
                 ref={editorRef}
                 tabIndex={1} // tabIndex of textarea
                 onChange={onBlurHandler}
+                config={config}
             />
         </div>
     )
