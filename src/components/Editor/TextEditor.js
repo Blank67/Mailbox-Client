@@ -16,7 +16,8 @@ const TextEditor = (props) => {
             <JoditEditor
                 ref={editorRef}
                 tabIndex={1} // tabIndex of textarea
-                onChange={onBlurHandler}
+                onBlur={onBlurHandler}
+                // onChange={onBlurHandler}
                 config={config}
             />
         </div>

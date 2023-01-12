@@ -69,7 +69,6 @@ const Signup = (props) => {
         try {
             const response = await registerUserAPI(user);
             setWait(false);
-            // console.log(response);
             if (!response.ok) {
                 throw new Error('Register Email API Error.');
             }

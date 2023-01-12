@@ -55,7 +55,13 @@ const Inbox = (props) => {
             sEmail,
             rEmail: rMail,
             subject: subj,
-            body
+            body,
+            read: false,
+            rDelete: false,
+            sDelete: false
+        }
+        if (rEmail === email) {
+            dispatch(mailActions.addMail({ mail: mail, for: sEmail }));
         }
         dispatch(mailActions.addMail({ mail: mail }));
         dispatch(mailActions.addOutboxMails({ mail: mail }));
@@ -79,7 +85,7 @@ const Inbox = (props) => {
         <div>
             {success && <p className="text-center">Mail sent....</p>}
             <Button className="m-2" onClick={toggleCompose}>Compose</Button>
-            {compose && <Container style={{zIndex: "1", position: "fixed", bottom: "0px", right: "0px", background: "whitesmoke", width: "40rem" }}>
+            {compose && <Container style={{ zIndex: "1", position: "fixed", bottom: "0px", right: "0px", background: "whitesmoke", width: "40rem" }}>
                 <Row className="rounded-top" style={{ background: "#4d4f52" }}>
                     <Col>
                         <div>

@@ -13,12 +13,12 @@ export const fetchAllData = (userEmail) => {
 
         try {
             let data = await getData();
-            if(data.length > 0) {
-                const inbox = data.filter((itm) => itm.rEmail === userEmail);
-                const outbox = data.filter((itm) => itm.sEmail === userEmail);
-                dispatch(mailActions.replaceMailState({mails: data, inbox: inbox, outbox: outbox}));
-            }else{
-                console.log("No mails in firebase");
+            if (data === null) {
+                console.log("Firebase is empty");
+            } else {
+                const inbox = data.filter((itm) => itm.rEmail === userEmail && !itm.rDelete);
+                const outbox = data.filter((itm) => itm.sEmail === userEmail && !itm.sDelete);
+                dispatch(mailActions.replaceMailState({ mails: data, inbox: inbox, outbox: outbox }));
             }
         } catch (err) {
             console.log("MAIL-SLICE GET ERROR");
@@ -31,14 +31,14 @@ export const postAllData = (allUserMails) => {
 
     return async (dispatch) => {
         const postRequest = async () => {
-            if(allUserMails.length !== 0){
+            if (allUserMails.length !== 0) {
                 const response = await axios.put(`/.json`, allUserMails);
                 if (response.statusText !== 'OK') {
                     throw new Error('POST REQ FAILED');
-                }else{
+                } else {
                     console.log("SUCESS POST");
                 }
-            }else{
+            } else {
                 console.log("First time post req as empty array stopped");
             }
         }

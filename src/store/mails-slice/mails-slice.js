@@ -12,9 +12,37 @@ const mailsSlice = createSlice({
     reducers: {
         addMail(state, action) {
             const newMail = action.payload.mail;
-            state.mails.push({ ...newMail, read: false });
+            state.mails.push({ ...newMail});
+            if(action.payload.for){
+                state.inbox.push({...newMail});
+            }
         },
-        deleteMail(state, action) { },
+        deleteMail(state, action) { 
+            const indexOfItemToDeleteMails = state.mails.findIndex((itm) => itm.id === action.payload.mail.id );
+            const indexOfItemToDeleteOutbox = state.outbox.findIndex((itm) => itm.id === action.payload.mail.id );
+            const indexOfItemToDeleteInbox = state.inbox.findIndex((itm) => itm.id === action.payload.mail.id );
+            const itemToDeleteMails = state.mails[indexOfItemToDeleteMails];
+            const itemToDeleteInbox = state.mails[indexOfItemToDeleteInbox];
+            const itemToDeleteOutbox = state.mails[indexOfItemToDeleteOutbox];
+            if(action.payload.for === 'OUTBOX'){
+                state.mails[indexOfItemToDeleteMails] = {...itemToDeleteMails, sDelete:true};
+                // state.inbox[indexOfItemToDeleteInbox] = {...itemToDeleteInbox, sDelete:true};
+                state.outbox[indexOfItemToDeleteOutbox] = {...itemToDeleteOutbox, sDelete:true};
+                
+                state.inbox = state.inbox.filter((itm) => !itm.rDelete);
+                state.outbox = state.outbox.filter((itm) => !itm.sDelete);
+            } else if(action.payload.for === 'INBOX'){
+                state.mails[indexOfItemToDeleteMails] = {...itemToDeleteMails, rDelete:true};
+                state.inbox[indexOfItemToDeleteInbox] = {...itemToDeleteInbox, rDelete:true};
+                // state.outbox[indexOfItemToDeleteOutbox] = {...itemToDeleteOutbox, sDelete:true};
+                
+                state.inbox = state.outbox.filter((itm) => !itm.rDelete);
+                state.outbox = state.outbox.filter((itm) => !itm.sDelete);
+            }else{
+                console.log("Unexpected Data received.");
+            }
+
+        },
         replaceMailState(state, action) {
             state.mails = action.payload.mails;
             state.inbox = action.payload.inbox;
