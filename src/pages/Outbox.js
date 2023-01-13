@@ -17,9 +17,9 @@ const Outbox = () => {
     }, [dispatch, mailSlice]);
 
     return (
-        <div>
+        // <div>
             <OutboxMailList />
-        </div>
+        // </div>
     )
 }
 
