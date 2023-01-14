@@ -8,6 +8,7 @@ import Inbox from './pages/Inbox';
 import LoginHeader from './components/Headers/LoginHeader';
 import Sidebar from './components/SideBar/Sidebar';
 import Outbox from './pages/Outbox';
+import MailDetailPage from './components/Mails/MailDetailPage';
 
 const App = () => {
   const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
@@ -22,7 +23,8 @@ const App = () => {
         <Sidebar />
         <Routes>
           <Route path='/inbox' element={<Inbox />} />
-          <Route path='/sent' element={<Outbox />} />
+          <Route exact path='/sent' element={<Outbox />} />
+          <Route path='/mail/:key' element={<MailDetailPage />}/>
           <Route path='*' element={<Navigate to='inbox' replace />} />
         </Routes>
       </div>}

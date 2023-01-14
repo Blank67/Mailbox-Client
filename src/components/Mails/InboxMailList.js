@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { mailActions } from "../../store/mails-slice/mails-slice";
-import MailItem from './MailItem';
+import InboxMailItem from './InboxMailItem';
 
 const InboxMailList = () => {
     const mailSlice = useSelector(state => state.mail);
@@ -10,10 +10,10 @@ const InboxMailList = () => {
         dispatch(mailActions.deleteMail({mail: mail, for: 'INBOX'}));
     }
 
-    const itemList = mailSlice.inbox.map((itm) => (<MailItem key={itm.id} mail={itm} onDelete={deleteMail.bind(null,itm)}/>));
+    const itemList = mailSlice.inbox.map((itm) => (<InboxMailItem key={itm.id} mail={itm} onDelete={deleteMail.bind(null,itm)}/>));
 
     return (
-        <ul>
+        <ul style={{ listStyle: "none" }} className="justify-content-start">
             {mailSlice.inbox.length > 0 ? itemList : <h2>EMPTY INBOX</h2>}
         </ul>
     );
