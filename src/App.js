@@ -9,9 +9,15 @@ import LoginHeader from './components/Headers/LoginHeader';
 import Sidebar from './components/SideBar/Sidebar';
 import Outbox from './pages/Outbox';
 import MailDetailPage from './components/Mails/MailDetailPage';
+import { useState } from 'react';
 
 const App = () => {
   const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
+  const [showCompose, setShowCompose] = useState(false);
+
+  const toggleCompose = () => {
+    setShowCompose((prev) => (!prev));
+  }
 
   return (
     <div>
@@ -20,9 +26,9 @@ const App = () => {
 
 
       {loginStatus && <div className='app__body'>
-        <Sidebar />
+        <Sidebar onToggle={toggleCompose} />
         <Routes>
-          <Route path='/inbox' element={<Inbox />} />
+          <Route path='/inbox' element={<Inbox compose={showCompose} onToggle={toggleCompose} />} />
           <Route exact path='/sent' element={<Outbox />} />
           <Route path='/mail/:key' element={<MailDetailPage />}/>
           <Route path='*' element={<Navigate to='inbox' replace />} />

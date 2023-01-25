@@ -12,7 +12,7 @@ const OutboxMailList = (props) => {
     const itemList = mailSlice.outbox.map((itm) => (<OutBoxMailItem key={itm.id} mail={itm} onDelete={deleteMail.bind(null, itm)} />));
 
     return (
-        <ul style={{ listStyle: "none" }} className="justify-content-start">
+        <ul style={{ listStyle: "none" }} className="justify-content-start mt-4">
             {mailSlice.outbox.length > 0 ? itemList : <h2>EMPTY OUTBOX</h2>}
         </ul>
     );

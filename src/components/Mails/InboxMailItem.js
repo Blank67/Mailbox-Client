@@ -1,3 +1,4 @@
+import { Delete } from "@material-ui/icons";
 import { Button, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -23,7 +24,10 @@ const InboxMailItem = (props) => {
                     </div>
                     <div className="col-2">
                         <div className="float-end">
-                            <Button onClick={props.onDelete}>Delete</Button>
+                            <Button variant="danger" className="float-end" onClick={props.onDelete}>
+                                <Delete />
+                            </Button>
+                            {/* <Button onClick={props.onDelete}>Delete</Button> */}
                         </div>
                     </div>
                 </div>

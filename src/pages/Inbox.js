@@ -7,7 +7,7 @@ import { fetchAllData, postAllData } from "../store/http-request/mail-http";
 import { mailActions } from "../store/mails-slice/mails-slice";
 
 const Inbox = (props) => {
-    const [compose, setCompose] = useState(false);
+    // const [compose, setCompose] = useState(false);
     const dispatch = useDispatch();
     const sEmail = useSelector(state => state.auth.email);
     const rEmail = useRef('');
@@ -21,7 +21,7 @@ const Inbox = (props) => {
     const [success, setSuccess] = useState(false);
 
     const toggleCompose = () => {
-        setCompose((prevState) => (!prevState));
+        // setCompose((prevState) => (!prevState));
         setSEmailError(false);
         setSubjectError(false);
         setMessageError(false);
@@ -29,6 +29,7 @@ const Inbox = (props) => {
     }
 
     const onMailSend = () => {
+        debugger;
         setSEmailError(false);
         setSubjectError(false);
         setMessageError(false);
@@ -65,7 +66,8 @@ const Inbox = (props) => {
         }
         dispatch(mailActions.addMail({ mail: mail }));
         dispatch(mailActions.addOutboxMails({ mail: mail }));
-        setCompose(false);
+        // setCompose(false);
+        props.onToggle();
         setSuccess(true);
     }
 
@@ -84,8 +86,8 @@ const Inbox = (props) => {
     return (
         <div>
             {success && <p className="text-center">Mail sent....</p>}
-            <Button className="m-2" onClick={toggleCompose}>Compose</Button>
-            {compose && <Container style={{ zIndex: "1", position: "fixed", bottom: "0px", right: "0px", background: "whitesmoke", width: "40rem" }}>
+            {/* <Button className="m-2" onClick={toggleCompose}>Compose</Button> */}
+            {props.compose && <Container style={{ zIndex: "1", position: "fixed", bottom: "0px", right: "0px", background: "whitesmoke", width: "40rem" }}>
                 <Row className="rounded-top" style={{ background: "#4d4f52" }}>
                     <Col>
                         <div>
