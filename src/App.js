@@ -13,10 +13,10 @@ import { useState } from 'react';
 
 const App = () => {
   const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
-  const [showCompose, setShowCompose] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const toggleCompose = () => {
-    setShowCompose((prev) => (!prev));
+  const toggleSuccess = (value) => {
+    setSuccess(value);
   }
 
   return (
@@ -26,10 +26,10 @@ const App = () => {
 
 
       {loginStatus && <div className='app__body'>
-        <Sidebar onToggle={toggleCompose} />
+        <Sidebar success={success} setSuccess={toggleSuccess} />
         <Routes>
-          <Route path='/inbox' element={<Inbox compose={showCompose} onToggle={toggleCompose} />} />
-          <Route exact path='/sent' element={<Outbox />} />
+          <Route path='/inbox' element={<Inbox success={success} setSuccess={toggleSuccess} />} />
+          <Route exact path='/sent' element={<Outbox success={success} setSuccess={toggleSuccess} />} />
           <Route path='/mail/:key' element={<MailDetailPage />}/>
           <Route path='*' element={<Navigate to='inbox' replace />} />
         </Routes>
