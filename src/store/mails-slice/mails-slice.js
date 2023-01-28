@@ -12,9 +12,9 @@ const mailsSlice = createSlice({
     reducers: {
         addMail(state, action) {
             const newMail = action.payload.mail;
-            state.mails.push({ ...newMail });
+            state.mails.unshift({ ...newMail });
             if (action.payload.for) {
-                state.inbox.push({ ...newMail });
+                state.inbox.unshift({ ...newMail });
             }
         },
         deleteMail(state, action) {
@@ -54,7 +54,7 @@ const mailsSlice = createSlice({
             state.outbox = [];
         },
         addOutboxMails(state, action) {
-            state.outbox.push({ ...action.payload.mail });
+            state.outbox.unshift({ ...action.payload.mail });
         },
         read(state, action) {
             const indexInMails = state.mails.findIndex((itm) => itm.id === action.payload.mail.id);
