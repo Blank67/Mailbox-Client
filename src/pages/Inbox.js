@@ -13,6 +13,16 @@ const Inbox = (props) => {
         props.setSuccess(false);
     }, 3000);
 
+    //GET Request is called after every 2 seconds. As it changes mailSlice, POST request is called.
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         console.log("Set interval called.");
+    //         sendRequest({method: 'GET', userEmail: email});
+    //     }, 2000);
+
+    //     return () => clearInterval(intervalId);
+    // },[email, sendRequest])
+
     // useEffect(() => {
     //     dispatch(fetchAllData(email));
     // }, [dispatch, email])
