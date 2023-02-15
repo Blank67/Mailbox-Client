@@ -42,7 +42,7 @@ const Sidebar = (props) => {
             setSubjectError(true);
             return;
         }
-        if (body.length === 0) {
+        if (body.length === 0 || body === '<p><br></p>') {
             setMessageError(true);
             return;
         }
@@ -110,7 +110,7 @@ const Sidebar = (props) => {
                 </div>
             </Container>
             }
-            
+
             <div className="sidebar d-flex justify-content-center">
                 <Button className="m-2" onClick={toggleCompose}>Compose</Button>
                 <SidebarOptions name="Inbox" path="/inbox" />

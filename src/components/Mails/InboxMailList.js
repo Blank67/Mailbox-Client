@@ -14,7 +14,7 @@ const InboxMailList = () => {
 
     return (
         <ul style={{ listStyle: "none" }} className="justify-content-start mt-4">
-            {mailSlice.inbox.length > 0 ? itemList : <h2>EMPTY INBOX</h2>}
+            {mailSlice.inbox.length > 0 ? itemList : <h2 className="text-center" style={{marginTop: '250px', marginRight:'150px'}}>Sorry, you don't have any mails.</h2>}
         </ul>
     );
 }

@@ -41,7 +41,6 @@ const mailsSlice = createSlice({
             } else {
                 console.log("Unexpected Data received.");
             }
-
         },
         replaceMailState(state, action) {
             state.mails = action.payload.mails;

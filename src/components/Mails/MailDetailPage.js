@@ -3,6 +3,7 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { postAllData } from "../../store/http-request/mail-http";
+import parse from 'html-react-parser';
 
 const MailDetailPage = (props) => {
     const params = useParams();
@@ -38,9 +39,11 @@ const MailDetailPage = (props) => {
                 </Card.Header>
                 <Card.Body>
                     <Card.Title>Subject: {mail[0].subject}</Card.Title>
-                    <Card.Text>
-                        {mail[0].body}
-                    </Card.Text>
+                    <hr></hr>
+                    <span id={mail[0].id}>
+                        {/* {mail[0].body.replace(/<[^>]+>/g, '')} */}
+                        {parse(mail[0].body)}
+                    </span>
                 </Card.Body>
             </Card>
         </Container>

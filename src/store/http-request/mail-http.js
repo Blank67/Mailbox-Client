@@ -14,7 +14,7 @@ export const fetchAllData = (userEmail) => {
         try {
             let data = await getData();
             if (data === null) {
-                console.log("Firebase is empty");
+                // console.log("Firebase is empty");
             } else {
                 const inbox = data.filter((itm) => itm.rEmail === userEmail && !itm.rDelete);
                 const outbox = data.filter((itm) => itm.sEmail === userEmail && !itm.sDelete);
@@ -36,10 +36,10 @@ export const postAllData = (allUserMails) => {
                 if (response.statusText !== 'OK') {
                     throw new Error('POST REQ FAILED');
                 } else {
-                    console.log("SUCESS POST");
+                    // console.log("SUCESS POST");
                 }
             } else {
-                console.log("First time post req as empty array stopped");
+                // console.log("First time post req as empty array stopped");
             }
         }
 

@@ -13,6 +13,7 @@ const Login = (props) => {
     const [wait, setWait] = useState(false);
     const [retryError, setRetryError] = useState(false);
     const dispatch = useDispatch();
+    const [wrongCredentials, setWrongCredentials] = useState(false);
 
     const signUpClickHandler = () => {
         navigate('/signup', { replace: true });
@@ -29,6 +30,8 @@ const Login = (props) => {
                 }
             });
             if (!response.ok) {
+                setWait(false);
+                setWrongCredentials(true);
                 throw new Error('loginUserAPI function Error');
             }
             return response;
@@ -45,6 +48,7 @@ const Login = (props) => {
         setPasswordError(false);
         setWait(false);
         setRetryError(false);
+        setWrongCredentials(false);
 
         //Validate Input
         if (!emailRef.current.value.includes('@')) {
@@ -98,6 +102,7 @@ const Login = (props) => {
                             <Form>
                                 {emailError && <p className="text-center text-danger">Invalid Email.</p>}
                                 {passwordError && <p className="text-center text-danger">Invalid Password.</p>}
+                                {wrongCredentials && <p className="text-center text-danger">Invalid Credentials.</p>}
                                 {wait && <p className="text-center text-warning">Please Wait....</p>}
                                 {retryError && <p className="text-center text-warning">Please wait some time before trying again.</p>}
                                 <Form.Group className="mb-3">
@@ -111,9 +116,9 @@ const Login = (props) => {
                                 <div className="text-center">
                                     <Button variant="warning" type="submit" onClick={signUpHandler}>Login</Button>
                                 </div>
-                                <div className="text-center mt-2">
+                                {/* <div className="text-center mt-2">
                                     <Button variant="link">Forget Password</Button>
-                                </div>
+                                </div> */}
                             </Form>
                         </Card.Body>
                     </Card>

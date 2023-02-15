@@ -44,10 +44,10 @@ const useHttp = () => {
 
     //To log 
     if (error) {
-        console.log(error);
+        // console.log(error);
     }
     if (message) {
-        console.log(message);
+        // console.log(message);
     }
 
     return sendRequest;

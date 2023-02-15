@@ -31,7 +31,7 @@ const Outbox = (props) => {
 
     return (
         <div>
-            {props.success && <p className="text-center">Mail sent....</p>}
+            {props.success && <p className="text-center text-success">Mail sent....</p>}
             <OutboxMailList />
         </div>
     )
