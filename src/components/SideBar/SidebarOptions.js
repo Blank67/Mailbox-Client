@@ -7,7 +7,7 @@ const SidebarOptions = (props) => {
 
     const count = props.name === "Inbox" ? mailSlice.inbox.length : mailSlice.outbox.length;
     return (
-        <div className={`option__item`}>
+        <div className={`option__item rounded`}>
             <NavLink className="nav-link px-3 mr-2" to={props.path}>{props.name}</NavLink>
             <span>{count}</span>
         </div>
