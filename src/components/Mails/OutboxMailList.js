@@ -13,7 +13,7 @@ const OutboxMailList = (props) => {
 
     return (
         <ul style={{ listStyle: "none" }} className="justify-content-start mt-4">
-            {mailSlice.outbox.length > 0 ? itemList : <h2 className="text-center" style={{marginTop: '250px', marginRight:'150px'}}>Your outbox is empty.</h2>}
+            {mailSlice.outbox.length > 0 ? itemList : mailSlice.mails.length === 0 ? <h2 className="text-center" style={{ marginTop: '250px', marginRight: '150px' }}>Loading....</h2> : <h2 className="text-center" style={{ marginTop: '250px', marginRight: '150px' }}>Your outbox is empty.</h2>}
         </ul>
     );
 }
