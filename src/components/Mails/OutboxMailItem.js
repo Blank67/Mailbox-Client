@@ -15,7 +15,7 @@ const OutBoxMailItem = (props) => {
         <li>
             <Container className="my-2">
                 <div className="row">
-                    <div className="col border rounded" style={{ background: props.mail.read ? "#F2F6FC" : " " }}>
+                    <div className="col border rounded" style={{ background: props.for==='OUTBOX'? '#F2F6FC' : props.mail.read ? "#F2F6FC" : " " }}>
                         <NavLink className="" to={`/mail/${props.mail.id}`} onClick={markAsRead.bind(null, props.mail)} style={{ textDecoration: 'none', color: "black" }} >
                             <span className="mx-1" style={{ fontWeight: "600" }}>{props.mail.sEmail}</span>
                             <span className="mx-1">{props.mail.subject}</span>

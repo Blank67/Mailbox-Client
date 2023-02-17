@@ -18,6 +18,7 @@ const Sidebar = (props) => {
     const [sEmailError, setSEmailError] = useState(false);
     const [subjectError, setSubjectError] = useState(false);
     const [messageError, setMessageError] = useState(false);
+    const [invalidEmail, setInvalidEmail] = useState(false);
 
     const toggleCompose = () => {
         setCompose((prevState) => (!prevState));
@@ -27,11 +28,27 @@ const Sidebar = (props) => {
         props.setSuccess(false);
     }
 
-    const onMailSend = () => {
+    const verifyEmail = async (email) => {
+        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key=AIzaSyCNUaizoA-vIyFK5_hSty_cXOBrvb7wJFo`, {
+            method: 'POST',
+            body: JSON.stringify({
+                identifier: email,
+                continueUri: "http://localhost:3000"
+            }),
+            header: {
+                "content-Type": "application/json"
+            }
+        });
+        const transformedResponse = await response.json();
+        return transformedResponse.registered;
+    }
+
+    const onMailSend = async () => {
         setSEmailError(false);
         setSubjectError(false);
         setMessageError(false);
         props.setSuccess(false);
+        setInvalidEmail(false);
         const rMail = rEmail.current.value;
         const subj = subject.current.value;
         if (!rEmail.current.value.includes('@')) {
@@ -46,9 +63,15 @@ const Sidebar = (props) => {
             setMessageError(true);
             return;
         }
+        const isValid = await verifyEmail(rEmail.current.value);
+        if (!isValid) {
+            setInvalidEmail(true);
+            return;
+        }
         setSEmailError(false);
         setSubjectError(false);
         setMessageError(false);
+        setInvalidEmail(false);
         const mail = {
             id: rMail + '_' + subj.replace(/\s+/g, ''),
             sEmail,
@@ -79,6 +102,7 @@ const Sidebar = (props) => {
                         </div>
                     </Col>
                 </Row>
+                {invalidEmail && <p className="text-center text-danger">Invalid email.</p>}
                 {sEmailError && <p className="text-center text-danger">Invalid "To".</p>}
                 {subjectError && <p className="text-center text-danger">"Subject" cannot be empty.</p>}
                 {messageError && <p className="text-center text-danger">"Message" cannot be empty.</p>}

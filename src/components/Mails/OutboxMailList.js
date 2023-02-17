@@ -10,7 +10,7 @@ const OutboxMailList = (props) => {
     const deleteMail = (mail) => {
         dispatch(mailActions.deleteMail({ mail: mail, for: 'OUTBOX' }))
     }
-    const itemList = mailSlice.outbox.map((itm) => (<OutBoxMailItem key={itm.id} mail={itm} onDelete={deleteMail.bind(null, itm)} />));
+    const itemList = mailSlice.outbox.map((itm) => (<OutBoxMailItem key={itm.id} mail={itm} onDelete={deleteMail.bind(null, itm)} for={'OUTBOX'} />));
 
     return (
         <ul style={{ listStyle: "none" }} className="justify-content-start mt-4">
