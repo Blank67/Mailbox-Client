@@ -3,6 +3,7 @@ import { Button, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { mailActions } from "../../store/mails-slice/mails-slice";
+import '../../css/MailItem.css';
 
 const OutBoxMailItem = (props) => {
     const dispatch = useDispatch();
@@ -15,10 +16,11 @@ const OutBoxMailItem = (props) => {
         <li>
             <Container className="my-2">
                 <div className="row">
-                    <div className="col border rounded" style={{ background: props.for==='OUTBOX'? '#F2F6FC' : props.mail.read ? "#F2F6FC" : " " }}>
-                        <NavLink className="" to={`/mail/${props.mail.id}`} onClick={markAsRead.bind(null, props.mail)} style={{ textDecoration: 'none', color: "black" }} >
-                            <span className="mx-1" style={{ fontWeight: "600" }}>{props.mail.sEmail}</span>
-                            <span className="mx-1">{props.mail.subject}</span>
+                    <div className="col border rounded" style={{ background: props.for === 'OUTBOX' ? '#F2F6FC' : props.mail.read ? "#F2F6FC" : " ", display: 'flex', alignItems: 'center' }}>
+                        <NavLink className="" to={`/mail/${props.mail.id}`} onClick={markAsRead.bind(null, props.mail)} style={{ textDecoration: 'none', color: "black", display: 'flex', flexDirection: 'row' }} >
+                            <span className="mx-1">{props.mail.sEmail}&nbsp;</span>
+                            <strong>&nbsp;{props.mail.subject}&nbsp;-&nbsp;</strong>
+                            <span className="text-overflow text-secondary">{props.mail.body.replace(/(<([^>]+)>)/gi, "")}</span>
                         </NavLink>
                     </div>
                     <div className="col-2">
