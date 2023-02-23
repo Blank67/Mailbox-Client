@@ -48,9 +48,9 @@ const AfterLogin = (props) => {
                 <Modal.Title className="text-center">Hello, {authSlice.email}</Modal.Title>
                 <Button className="float-end" onClick={logoutHandler}>Logout</Button>
             </Modal.Header>
-            <Modal.Body className="d-flex justify-content-center align-items-center">
-                <Container style={{ width: '20vw' }}>
-                    <Form onSubmit={submitHandler}>
+            <Modal.Body className="d-flex justify-content-center align-items-center bg-light">
+                <Container className="border border-secondary rounded bg-white" style={{ width: '40vw' }}>
+                    <Form onSubmit={submitHandler} className="mt-3">
                         {error && <p className="text-center text-danger">Name cannot be empty.</p>}
                         <Form.Group>
                             <Form.Label htmlFor="name">Enter Full Name:</Form.Label>

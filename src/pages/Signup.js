@@ -97,7 +97,7 @@ const Signup = (props) => {
                                 {confirmPasswordError && <p className="text-center text-danger">Password and Confirm Password don't match.</p>}
                                 {wait && <p className="text-center text-warning">Please Wait....</p>}
                                 {apiError && <p className="text-center text-danger">Email Already Exist.</p>}
-                                {created && !apiError && <p className="text-center text-info">Account Created.</p>}
+                                {created && !apiError && <p className="text-center text-info">Account successfully created.</p>}
                                 <Form.Group className="mb-3">
                                     <Form.Label htmlFor="email">Email</Form.Label>
                                     <Form.Control id="email" type="email" required ref={emailRef} />
