@@ -11,6 +11,7 @@ const Sidebar = (props) => {
     const [compose, setCompose] = useState(false);
     const dispatch = useDispatch();
     const sEmail = useSelector(state => state.auth.email);
+    const sName = useSelector(state => state.auth.name);
     const rEmail = useRef('');
     const subject = useRef('');
     const [body, setBody] = useState('');
@@ -75,6 +76,7 @@ const Sidebar = (props) => {
         const mail = {
             id: rMail + '_' + subj.replace(/\s+/g, ''),
             sEmail,
+            sName,
             rEmail: rMail,
             subject: subj,
             body,

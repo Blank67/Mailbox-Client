@@ -28,7 +28,7 @@ const MailDetailPage = (props) => {
                 <Card.Header>
                     <Row>
                         <Col>
-                            <span>From: {mail[0].sEmail}</span>
+                            <span>From: {mail[0].sName} ({mail[0].sEmail})</span>
                         </Col>
                         {/* <Col>
                             <Button variant="danger" className="float-end" onClick={deleteMail}>

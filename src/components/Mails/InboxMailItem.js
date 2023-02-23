@@ -19,7 +19,7 @@ const InboxMailItem = (props) => {
                     <div className="col border rounded" style={{ background: props.mail.read ? "#F2F6FC" : " ", display: 'flex', alignItems: 'center' }}>
                         <NavLink to={`/mail/${props.mail.id}`} onClick={markAsRead.bind(null, props.mail)} style={{ textDecoration: 'none', color: "black", display: 'flex', flexDirection: 'row' }} >
                             {!props.mail.read ? <span style={{ color: "green" }} className="mx-1">●</span> : <span className="me-3" />}
-                            <span className="mx-1">{props.mail.sEmail}&nbsp;</span>
+                            <span className="mx-1">{props.mail.sName}:&nbsp;</span>
                             <strong>&nbsp;{props.mail.subject}&nbsp;-&nbsp;</strong>
                             <span className="text-overflow text-secondary">{props.mail.body.replace(/(<([^>]+)>)/gi, "")}</span>
                         </NavLink>

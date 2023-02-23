@@ -10,9 +10,11 @@ import Sidebar from './components/SideBar/Sidebar';
 import Outbox from './pages/Outbox';
 import MailDetailPage from './components/Mails/MailDetailPage';
 import { useState } from 'react';
+import AfterLogin from './pages/AfterLogin';
 
 const App = () => {
   const loginStatus = useSelector((state) => (state.auth.isLoggedIn));
+  const nameStatus = useSelector((state) => (state.auth.name));
   const [success, setSuccess] = useState(false);
 
   const toggleSuccess = (value) => {
@@ -20,27 +22,49 @@ const App = () => {
   }
 
   return (
-    <div>
+    // <div>
+    //   {!loginStatus && <Header />}
+    //   {loginStatus && <LoginHeader />}
+
+
+    //   {loginStatus && <div className='app__body'>
+    //     <Sidebar success={success} setSuccess={toggleSuccess} />
+    //     <Routes>
+    //       <Route path='/inbox' element={<Inbox success={success} setSuccess={toggleSuccess} />} />
+    //       <Route exact path='/sent' element={<Outbox success={success} setSuccess={toggleSuccess} />} />
+    //       <Route path='/mail/:key' element={<MailDetailPage />}/>
+    //       <Route path='*' element={<Navigate to='inbox' replace />} />
+    //     </Routes>
+    //   </div>}
+
+    //   <Routes>
+    //     {!loginStatus && <Route path='/login' element={<Login />} />}
+
+    //     {!loginStatus && <Route path='/signup' element={<Signup />} />}
+    //     {!loginStatus && <Route path='*' element={<Navigate to='login' replace />} />}
+    //   </Routes>
+    // </div>
+
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+
       {!loginStatus && <Header />}
-      {loginStatus && <LoginHeader />}
-
-
-      {loginStatus && <div className='app__body'>
+      {(loginStatus && (nameStatus !== '' && nameStatus !== null)) && <LoginHeader />}
+      {(loginStatus && (nameStatus === '' || nameStatus === null)) && <AfterLogin />}
+      {(loginStatus && (nameStatus !== '' && nameStatus !== null)) && <div className='app__body'>
         <Sidebar success={success} setSuccess={toggleSuccess} />
         <Routes>
           <Route path='/inbox' element={<Inbox success={success} setSuccess={toggleSuccess} />} />
           <Route exact path='/sent' element={<Outbox success={success} setSuccess={toggleSuccess} />} />
-          <Route path='/mail/:key' element={<MailDetailPage />}/>
+          <Route path='/mail/:key' element={<MailDetailPage />} />
           <Route path='*' element={<Navigate to='inbox' replace />} />
         </Routes>
       </div>}
-
       <Routes>
         {!loginStatus && <Route path='/login' element={<Login />} />}
-
         {!loginStatus && <Route path='/signup' element={<Signup />} />}
         {!loginStatus && <Route path='*' element={<Navigate to='login' replace />} />}
       </Routes>
+
     </div>
   );
 }
